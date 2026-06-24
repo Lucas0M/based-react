@@ -7,6 +7,11 @@ interface IInputAddProps {
 export const InputAdd = (props: IInputAddProps) => {
   const [value, setValue] = useState("");
 
+  const handleAdd = () => {
+    props.onAdd(value);
+    setValue("");
+  };
+
   return (
     <div>
       <input
@@ -14,14 +19,7 @@ export const InputAdd = (props: IInputAddProps) => {
         onChange={(e) => setValue(e.target.value)}
         type="text"
       />
-      <button
-        onClick={() => {
-          props.onAdd(value);
-          setValue("");
-        }}
-      >
-        Adicionar
-      </button>
+      <button onClick={handleAdd}>Adicionar</button>
     </div>
   );
 };

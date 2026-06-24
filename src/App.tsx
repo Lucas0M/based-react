@@ -15,20 +15,20 @@ export function App() {
     { id: "4", label: "Fazer Janta", complete: false },
   ]);
 
+  const handleAdd = (value: string) => {
+    setList([
+      ...list,
+      {
+        id: (list.length + 1).toString(),
+        label: value,
+        complete: false,
+      },
+    ]);
+  };
+
   return (
     <div>
-      <InputAdd
-        onAdd={(value) =>
-          setList([
-            ...list,
-            {
-              id: (list.length + 1).toString(),
-              label: value,
-              complete: false,
-            },
-          ])
-        }
-      />
+      <InputAdd onAdd={handleAdd} />
 
       <div>
         <ol>
