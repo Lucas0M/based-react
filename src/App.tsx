@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { InputAdd } from "./components/InputAdd";
 
 type List = {
   id: string;
@@ -7,7 +8,6 @@ type List = {
 };
 
 export function App() {
-  const [value, setValue] = useState("");
   const [list, setList] = useState<List[]>([
     { id: "1", label: "Fazer Cafe", complete: false },
     { id: "2", label: "Fazer Cafe", complete: false },
@@ -17,52 +17,52 @@ export function App() {
 
   return (
     <div>
-      <input
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        type="text"
-      />
-      <button
-        onClick={() => {
+      <InputAdd
+        onAdd={(value) =>
           setList([
             ...list,
-            { id: (list.length + 1).toString(), label: value, complete: false },
-          ]);
-          setValue("");
-        }}
-      >
-        Adicionar
-      </button>
+            {
+              id: (list.length + 1).toString(),
+              label: value,
+              complete: false,
+            },
+          ])
+        }
+      />
 
-      <ol>
-        {list.map((listItem) => (
-          <li key={listItem.id}>
-            {listItem.label}
+      <div>
+        <ol>
+          {list.map((listItem) => (
+            <li key={listItem.id}>
+              {listItem.label}
 
-            {listItem.complete ? "Concluido" : ""}
-            <button
-              onClick={() =>
-                setList([
-                  ...list.map((item) => ({
-                    ...item,
-                    complete:
-                      item.id === listItem.id ? !item.complete : item.complete,
-                  })),
-                ])
-              }
-            >
-              {listItem.complete ? "Desconcluir" : "Concluir"}
-            </button>
-            <button
-              onClick={() =>
-                setList([...list.filter((item) => item.id !== listItem.id)])
-              }
-            >
-              Remover
-            </button>
-          </li>
-        ))}
-      </ol>
+              {listItem.complete ? "Concluido" : ""}
+              <button
+                onClick={() =>
+                  setList([
+                    ...list.map((item) => ({
+                      ...item,
+                      complete:
+                        item.id === listItem.id
+                          ? !item.complete
+                          : item.complete,
+                    })),
+                  ])
+                }
+              >
+                {listItem.complete ? "Desconcluir" : "Concluir"}
+              </button>
+              <button
+                onClick={() =>
+                  setList([...list.filter((item) => item.id !== listItem.id)])
+                }
+              >
+                Remover
+              </button>
+            </li>
+          ))}
+        </ol>
+      </div>
     </div>
   );
 }
