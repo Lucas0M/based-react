@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { InputAdd } from "./components/InputAdd";
 import { TodoItem } from "./components/TodoItem";
+import { List } from "./components/List";
 
 type List = {
   id: string;
@@ -45,16 +46,16 @@ export function App() {
       <InputAdd onAdd={handleAdd} />
 
       <div>
-        <ol>
+        <List>
           {list.map((listItem) => (
             <TodoItem
               key={listItem.id}
               {...listItem}
-              onComplete={handleComplete}
-              onDelete={handleDelete}
+              onComplete={() => handleComplete(listItem.id)}
+              onDelete={() => handleDelete(listItem.id)}
             />
           ))}
-        </ol>
+        </List>
       </div>
     </div>
   );
